@@ -13,7 +13,6 @@ namespace TestServer
     {
         static void Main(string[] args)
         {
-            var gen = new MethodGenerator();
             /*
             var parser = gen.GetOrGenerateCsvParser(typeof(ItemData));
             var data = (ItemData)parser(new[] { "1234", "393939393", "4343"});
@@ -25,15 +24,14 @@ namespace TestServer
 
             IQueryable<ItemData> items;
 
-
             using (var stream = new MemoryStream())
             using (var writer = new BinaryWriter(stream))
             {
-                var m = gen.GetOrGenerateBinWriter(typeof (ItemData));
+                var m = MethodGenerator.GenerateBinWriter(typeof (ItemData));
                 m(writer, new ItemData { Timestamp = 1235, DbId = 333, Name = "abc"});
 
                 var array = stream.ToArray();
-                var m2 = gen.GetOrGenerateBinParser(typeof (ItemData));
+                var m2 = MethodGenerator.GenerateBinParser(typeof (ItemData));
                 var offset = 0;
                 var data2 = (ItemData)m2(array, ref offset);
 
